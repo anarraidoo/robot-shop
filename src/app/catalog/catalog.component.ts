@@ -4,19 +4,21 @@ import { IProduct } from './product.model';
 @Component({
   selector: 'bot-catalog',
   templateUrl: './catalog.component.html',
-  styleUrl: './catalog.component.css'
+  styleUrls: ['./catalog.component.css']
+  // styles: ['a {font-weight: bold;}']
 })
 
 export class CatalogComponent {
   products: IProduct[];
   filter: string = '';
+  cart: IProduct[] = [];
 
   constructor() {
     this.products  = [
       {
         id: 1,
         description:
-          "A robot head with an unusually large eye and teloscopic neck -- excellent for exploring high spaces.",
+          "A robot head with an unusually large eye and telescopic neck -- excellent for exploring high spaces.",
         name: "Large Cyclops",
         imageName: "head-big-eye.png",
         category: "Heads",
@@ -132,7 +134,7 @@ export class CatalogComponent {
       {
         id: 11,
         description:
-          "A torso that can bend slightly at the waist and equiped with a heat guage.",
+          "A torso that can bend slightly at the waist and equipped with a heat gauge.",
         name: "Flexible Gauged Torso",
         imageName: "torso-flexible-gauged.png",
         category: "Torsos",
@@ -197,5 +199,15 @@ export class CatalogComponent {
   getFilteredProducts() {
     return this.filter === '' ? this.products
     : this.products.filter((product) => product.category === this.filter); 
+  }
+
+  getDiscountedClasses(product: IProduct) {
+    return product.discount > 0 ? ['strikethrough'] : [];
+    // return { strikethrough: product.discount > 0};
+  }
+
+  addToCart(product: IProduct) {
+    this.cart.push(product);
+    console.log(`product ${product.name} added to cart`);
   }
 }
