@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../cart/cart.service';
 import { IProduct } from './product.model';
 import { ProductService } from './product.service';
@@ -15,7 +16,11 @@ export class CatalogComponent {
   filter: string = '';
   // cart: IProduct[] = [];
 
-  constructor(private cartService: CartService, private productService: ProductService) {
+  constructor(
+    private cartService: CartService, 
+    private productService: ProductService, 
+    private router: Router,
+    private route: ActivatedRoute) {
     // this.products  = [
     //   {
     //     id: 1,
@@ -197,6 +202,10 @@ export class CatalogComponent {
     this.productService.getProducts().subscribe(products => {
       this.products = products;
     });
+    // this.filter = this.route.snapshot.params['filter'];
+    this.route.queryParams.subscribe((params) => {
+      this.filter = params['filter'] ?? '';
+    });
   }
 
   // getImageURL(product: IProduct) {
@@ -204,9 +213,13 @@ export class CatalogComponent {
   //   return '/assets/images/robot-parts/' + product.imageName;
   // }
 
+  // getFilteredProducts() {
+  //   return this.filter === '' ? this.products
+  //   : this.products.filter((product: any) => product.category === this.filter); 
+  // }
   getFilteredProducts() {
-    return this.filter === '' ? this.products
-    : this.products.filter((product: any) => product.category === this.filter); 
+    return this.products ? (this.filter === '' ? this.products
+      : this.products.filter((product: any) => product.category === this.filter)) : [];
   }
 
   // getDiscountedClasses(product: IProduct) {
@@ -218,5 +231,6 @@ export class CatalogComponent {
     // this.cart.push(product);
     // console.log(`product ${product.name} added to cart`);
     this.cartService.add(product);
+    this.router.navigate(['/cart']);
   }
 }
