@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CartComponent } from './cart/cart.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { TemplateFormControlsComponent } from './user/template-form-controls/template-form-controls.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -20,15 +21,14 @@ import { TemplateFormControlsComponent } from './user/template-form-controls/tem
     CatalogComponent,
     SiteHeaderComponent,
     ProductDetailsComponent,
-    CartComponent,
-    SignInComponent,
-    TemplateFormControlsComponent
+    CartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    UserModule
   ],
   providers: [
     provideClientHydration(),
