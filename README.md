@@ -21,3 +21,5 @@ Implemented with Angular, Html, CSS, Ts, Vite and Karma testing.
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+*Last updated [04/19/24]*
